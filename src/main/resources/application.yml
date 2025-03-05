@@ -1,0 +1,71 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/forwarder-es
+    username: appl
+    password: appl
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+report:
+  max-batch-size: -1
+  send-report-interval-seconds: 1
+  types:
+    "gkv":
+      endpoint: "https://www.gkv-datenaustausch.de/AGTOSV"
+      phonenumber-xpath:
+        - "/AGTOSV/SendungHeaderAGTOSV/Kommunikationsdaten/Telefonnummer_Ansprechpartner"
+        - "/AGTOSV/SendungHeaderAGTOSV/Kommunikationsdaten/Faxnummer_Ansprechpartner"
+      node-based: false
+    "kvpv":
+      endpoint: "https://itzbund.de/api/kvpvBatchDelivery"
+      phonenumber-xpath:
+        - "//Telefon"
+      node-based: true
+
+axon:
+  eventhandling:
+    processors:
+      trackingProcessor:
+        mode: tracking
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
+  axonserver:
+    enabled: false
+    event-store:
+      enabled: true
+    keep-alive-time: 0
+    keep-alive-timeout: 3600000
+  timeout:
+    transaction:
+      command-bus:
+        timeout-ms: 3600000
+        warning-interval-ms: 3600000
+        warning-threshold-ms: 3600000
+      query-bus:
+        timeout-ms: 3600000
+        warning-interval-ms: 3600000
+        warning-threshold-ms: 3600000
+      deadline:
+        timeout-ms: 3600000
+        warning-interval-ms: 3600000
+        warning-threshold-ms: 3600000
+      event-processors:
+        warning-interval-ms: 3600000
+        timeout-ms: 3600000
+        warning-threshold-ms: 3600000
+
+db-scheduler:
+  delayStartupUntilContextReady: true
+
+logging:
+  level:
+    org:
+      axonframework: INFO
+    com:
+      github:
+        kagkarlsson:
+          scheduler: INFO
