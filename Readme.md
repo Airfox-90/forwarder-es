@@ -50,7 +50,7 @@ spring:
 To compile and package the application using Gradle, run:
 
 ```sh
-gradle build
+gradlew build
 ```
 
 This will generate a `JAR` file in the `build/libs` directory.
@@ -66,7 +66,7 @@ java -jar build/libs/<your-app-name>.jar
 Alternatively, you can run it directly using Gradle:
 
 ```sh
-gradle bootRun
+gradlew bootRun
 ```
 
 ## Testing the Application
