@@ -15,14 +15,12 @@ import org.axonframework.modelling.saga.SagaLifecycle
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import java.time.Duration
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
 @Saga(sagaStore = "sagaStore")
-@EnableConfigurationProperties(ReportProperties::class)
 class BatchProcessingSaga {
 
     @Autowired

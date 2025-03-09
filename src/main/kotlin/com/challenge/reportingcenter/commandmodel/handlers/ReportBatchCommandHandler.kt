@@ -9,14 +9,12 @@ import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
 @Service
-@EnableConfigurationProperties(ReportProperties::class)
 class ReportBatchCommandHandler(
     val queryGateway: QueryGateway,
     val commandGateway: CommandGateway,

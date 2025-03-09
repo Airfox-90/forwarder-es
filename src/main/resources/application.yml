@@ -10,7 +10,7 @@ spring:
 
 report:
   max-batch-size: -1
-  send-report-interval-seconds: 1
+  send-report-interval-seconds: 30
   types:
     "gkv":
       endpoint: "https://www.gkv-datenaustausch.de/AGTOSV"
@@ -37,26 +37,27 @@ axon:
     enabled: false
     event-store:
       enabled: true
-    keep-alive-time: 0
-    keep-alive-timeout: 3600000
-  timeout:
-    transaction:
-      command-bus:
-        timeout-ms: 3600000
-        warning-interval-ms: 3600000
-        warning-threshold-ms: 3600000
-      query-bus:
-        timeout-ms: 3600000
-        warning-interval-ms: 3600000
-        warning-threshold-ms: 3600000
-      deadline:
-        timeout-ms: 3600000
-        warning-interval-ms: 3600000
-        warning-threshold-ms: 3600000
-      event-processors:
-        warning-interval-ms: 3600000
-        timeout-ms: 3600000
-        warning-threshold-ms: 3600000
+  # Uncomment the timeouts to prevent the axon framework from timing out while debugging
+    #keep-alive-time: 0
+    #keep-alive-timeout: 3600000
+  #timeout:
+  #  transaction:
+  #    command-bus:
+  #      timeout-ms: 3600000
+  #      warning-interval-ms: 3600000
+  #      warning-threshold-ms: 3600000
+  #    query-bus:
+  #      timeout-ms: 3600000
+  #      warning-interval-ms: 3600000
+  #      warning-threshold-ms: 3600000
+  #    deadline:
+  #      timeout-ms: 3600000
+  #      warning-interval-ms: 3600000
+  #      warning-threshold-ms: 3600000
+  #    event-processors:
+  #      warning-interval-ms: 3600000
+  #      timeout-ms: 3600000
+  #      warning-threshold-ms: 3600000
 
 db-scheduler:
   delayStartupUntilContextReady: true
@@ -65,7 +66,3 @@ logging:
   level:
     org:
       axonframework: INFO
-    com:
-      github:
-        kagkarlsson:
-          scheduler: INFO
