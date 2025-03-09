@@ -1,6 +1,5 @@
 package com.challenge.reportingcenter
 
-import com.challenge.reportingcenter.controller.ReportRequest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -20,7 +19,7 @@ class ReportIntegrationTest(@Autowired val restTemplate: TestRestTemplate) {
         headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
 
         val request1: MultiValueMap<String, String> = LinkedMultiValueMap()
-        request1.add("reportType", "ALARM")
+        request1.add("reportType", "kvpv")
         request1.add(
             "xmlContent",
             "<Report><Content>Feueralarm</Content><PhoneNumber>+49 170 1234567</PhoneNumber><ContactName>Max Mustermann</ContactName></Report>"
@@ -30,8 +29,8 @@ class ReportIntegrationTest(@Autowired val restTemplate: TestRestTemplate) {
         val response1: ResponseEntity<String> =
             restTemplate.postForEntity("/api/v1/reports", entity1, String::class.java)
 
-        assertEquals(HttpStatus.OK, response1.statusCode)
-        assertTrue(response1.body!!.contains("Report mit ID"))
+        assertEquals(HttpStatus.CREATED, response1.statusCode)
+        assertTrue(response1.body!!.contains("Report submitted to"))
 
         val request2: MultiValueMap<String, String> = LinkedMultiValueMap()
         request2.add("reportType", "INFO")
@@ -44,7 +43,7 @@ class ReportIntegrationTest(@Autowired val restTemplate: TestRestTemplate) {
         val response2: ResponseEntity<String> =
             restTemplate.postForEntity("/api/v1/reports", entity2, String::class.java)
 
-        assertEquals(HttpStatus.OK, response2.statusCode)
-        assertTrue(response2.body!!.contains("Report mit ID"))
+        assertEquals(HttpStatus.BAD_REQUEST, response2.statusCode)
+        assertTrue(response2.body!!.contains("not supported"))
     }
 }
